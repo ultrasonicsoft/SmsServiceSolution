@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../SmsProvider/SmsProvider.csproj",
+      "bin": {
+        "assembly": "../../SmsProvider/obj/{configuration}/SmsProvider.dll",
+        "pdb": "../../SmsProvider/obj/{configuration}/SmsProvider.pdb"
+      }
+    }
+  }
+}
