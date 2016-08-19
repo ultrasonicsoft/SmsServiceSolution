@@ -14,7 +14,7 @@ namespace Mitto.SMSService.Providers
 
         public MockSmsProvider()
         {
-            string logFileName = "smsLogs.csv";
+            const string logFileName = "smsLogs.csv";
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             if (!Directory.Exists(Path.Combine(appDataPath, "Mitto")))
             {

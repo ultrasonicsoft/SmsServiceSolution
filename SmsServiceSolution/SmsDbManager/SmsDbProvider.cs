@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using Mitto.SMSService.Models;
 using MySql.Data.MySqlClient;
 using SmsServiceSolution.Models;
+using SmsServiceSolution.SmsDbManager;
 
 namespace Mitto.SMSService.DbProvider
 {
     public class SmsDbProvider : ISmsDbProvider
     {
-        private string connectionString;
+        private readonly string connectionString;
 
         public SmsDbProvider(string connectionString)
         {
@@ -26,7 +27,7 @@ namespace Mitto.SMSService.DbProvider
             try
             {
                 connection.Open();
-                var command = new MySqlCommand("SELECT * FROM mitto_sms_db.countries;", connection);
+                var command = new MySqlCommand(SmsDbQueries.GetAllCountries, connection);
                 var adapter = new MySqlDataAdapter(command);
                 var dataSet = new DataSet();
                 adapter.Fill(dataSet);
@@ -34,15 +35,16 @@ namespace Mitto.SMSService.DbProvider
                 allCountries.AddRange(from DataRow countryRow in dataSet.Tables[0].Rows
                                       select new Country
                                       {
-                                          name = countryRow["name"].ToString(),
-                                          mcc = countryRow["mcc"].ToString(),
-                                          cc = countryRow["cc"].ToString(),
-                                          pricePerSMS = double.Parse(countryRow["price_per_sms"].ToString())
+                                          name = countryRow[SmsDbColumns.Name].ToString(),
+                                          mcc = countryRow[SmsDbColumns.Mcc].ToString(),
+                                          cc = countryRow[SmsDbColumns.CC].ToString(),
+                                          pricePerSMS = double.Parse(countryRow[SmsDbColumns.Price_per_sms].ToString())
                                       });
                 connection.Close();
             }
             catch (Exception exception)
             {
+                //TODO: log exception
                 throw;
             }
             finally
@@ -62,18 +64,19 @@ namespace Mitto.SMSService.DbProvider
             try
             {
                 connection.Open();
-                var command = new MySqlCommand("StoreSms", connection);
+                var command = new MySqlCommand(SmsDbQueries.StoreSms, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("_from", newSmsParams.From);
-                command.Parameters.AddWithValue("_to", newSmsParams.To);
-                command.Parameters.AddWithValue("_country_code", newSmsParams.CountryCode);
-                command.Parameters.AddWithValue("_message_text", newSmsParams.Text);
-                command.Parameters.AddWithValue("_isDelivered", false);
+                command.Parameters.AddWithValue(SmsDbColumns._From, newSmsParams.From);
+                command.Parameters.AddWithValue(SmsDbColumns._To, newSmsParams.To);
+                command.Parameters.AddWithValue(SmsDbColumns.Country_code, newSmsParams.CountryCode);
+                command.Parameters.AddWithValue(SmsDbColumns.Message_text, newSmsParams.Text);
+                command.Parameters.AddWithValue(SmsDbColumns._IsDelivered, false);
                 executionStatus = command.ExecuteNonQuery() > 0;
                 connection.Close();
             }
             catch (Exception exception)
             {
+                //TODO: log exception
                 throw;
             }
             finally
@@ -95,12 +98,12 @@ namespace Mitto.SMSService.DbProvider
             try
             {
                 connection.Open();
-                var command = new MySqlCommand("GetSentSms", connection);
+                var command = new MySqlCommand(SmsDbQueries.GetSentSms, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("dateTimeFrom", smsSearchCriteria.DateTimeFrom);
-                command.Parameters.AddWithValue("dateTimeTo", smsSearchCriteria.DateTimeTo);
-                command.Parameters.AddWithValue("skip", smsSearchCriteria.Skip);
-                command.Parameters.AddWithValue("take", smsSearchCriteria.Take);
+                command.Parameters.AddWithValue(SmsDbColumns.DateTimeFrom, smsSearchCriteria.DateTimeFrom);
+                command.Parameters.AddWithValue(SmsDbColumns.DateTimeTo, smsSearchCriteria.DateTimeTo);
+                command.Parameters.AddWithValue(SmsDbColumns.Skip, smsSearchCriteria.Skip);
+                command.Parameters.AddWithValue(SmsDbColumns.Take, smsSearchCriteria.Take);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataSet dataSet = new DataSet();
                 adapter.Fill(dataSet);
@@ -112,19 +115,19 @@ namespace Mitto.SMSService.DbProvider
                 {
                     searchResult.items.Add(new Sms
                     {
-                        dateTime = DateTime.Parse(searchResultRow["sent_on"].ToString()),
-                        mcc = searchResultRow["cc"].ToString(),
-                        from = searchResultRow["from"].ToString(),
-                        to = searchResultRow["to"].ToString(),
-                        price = double.Parse(searchResultRow["price_per_sms"].ToString()),
-                        state = (State)Enum.Parse(typeof(State), searchResultRow["is_delivered"].ToString())
-
+                        dateTime = DateTime.Parse(searchResultRow[SmsDbColumns.Sent_on].ToString()),
+                        mcc = searchResultRow[SmsDbColumns.CC].ToString(),
+                        from = searchResultRow[SmsDbColumns.From].ToString(),
+                        to = searchResultRow[SmsDbColumns.To].ToString(),
+                        price = double.Parse(searchResultRow[SmsDbColumns.Price_per_sms].ToString()),
+                        state = (State)Enum.Parse(typeof(State), searchResultRow[SmsDbColumns.IsDelivered].ToString())
                     });
                 }
                 connection.Close();
             }
             catch (Exception exception)
             {
+                //TODO: log exception
                 throw;
             }
             finally
@@ -145,11 +148,11 @@ namespace Mitto.SMSService.DbProvider
             {
                 connection.Open();
 
-                var command = new MySqlCommand("GetSmsStatistics", connection);
+                var command = new MySqlCommand(SmsDbQueries.GetSmsStatistics, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("dateFrom", smsStatisticsParams.DateFrom);
-                command.Parameters.AddWithValue("dateTo", smsStatisticsParams.DateTo);
-                command.Parameters.AddWithValue("mccList", smsStatisticsParams.MccList);
+                command.Parameters.AddWithValue(SmsDbColumns.DateFrom, smsStatisticsParams.DateFrom);
+                command.Parameters.AddWithValue(SmsDbColumns.DateTo, smsStatisticsParams.DateTo);
+                command.Parameters.AddWithValue(SmsDbColumns.MccList, smsStatisticsParams.MccList);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataSet dataSet = new DataSet();
                 adapter.Fill(dataSet);
@@ -158,18 +161,18 @@ namespace Mitto.SMSService.DbProvider
                 {
                     statisticsResult.Add(new SmsStatisticsRecord
                     {
-                        day = DateTime.Parse(statisticRow["day"].ToString()),
-                        mcc = statisticRow["mcc"].ToString(),
-                        pricePerSMS = double.Parse(statisticRow["price_per_sms"].ToString()),
-                        count = int.Parse(statisticRow["count"].ToString()),
-                        totalPrice = double.Parse(statisticRow["totalPrice"].ToString())
+                        day = DateTime.Parse(statisticRow[SmsDbColumns.Day].ToString()),
+                        mcc = statisticRow[SmsDbColumns.Mcc].ToString(),
+                        pricePerSMS = double.Parse(statisticRow[SmsDbColumns.Price_per_sms].ToString()),
+                        count = int.Parse(statisticRow[SmsDbColumns.Count].ToString()),
+                        totalPrice = double.Parse(statisticRow[SmsDbColumns.TotalPrice].ToString())
                     });
                 }
-
                 connection.Close();
             }
             catch (Exception exception)
             {
+                //TODO: log exception
                 throw;
             }
             finally
@@ -180,6 +183,42 @@ namespace Mitto.SMSService.DbProvider
                 }
             }
             return statisticsResult;
+        }
+
+        public bool DoLogin(string userName, string password)
+        {
+            var isLoginSuccessful = false;
+
+            var connection = new MySqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+                var command = new MySqlCommand(SmsDbQueries.Login, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue(SmsDbColumns._UserName, userName);
+                command.Parameters.AddWithValue(SmsDbColumns._Password, password);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                DataSet dataSet = new DataSet();
+                adapter.Fill(dataSet);
+
+                var resultCount = int.Parse(dataSet.Tables[0].Rows[0][SmsDbColumns.IsLoginSuccessful].ToString());
+                isLoginSuccessful = resultCount > 0;
+
+                connection.Close();
+            }
+            catch (Exception exception)
+            {
+                //TODO: log exception
+                throw;
+            }
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+            }
+            return isLoginSuccessful;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Mitto.SMSService.Models;
 
-namespace SmsServiceSolution.Models
+namespace Mitto.SMSService.Models
 {
     public class Sms
     {

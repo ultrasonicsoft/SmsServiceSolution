@@ -1,4 +1,4 @@
-﻿CREATE DATABASE  IF NOT EXISTS `mitto_sms_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `mitto_sms_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mitto_sms_db`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
@@ -61,7 +61,7 @@ CREATE TABLE `sms` (
   `is_delivered` tinyint(4) DEFAULT NULL,
   `sent_on` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,8 +70,33 @@ CREATE TABLE `sms` (
 
 LOCK TABLES `sms` WRITE;
 /*!40000 ALTER TABLE `sms` DISABLE KEYS */;
-INSERT INTO `sms` VALUES (47,'The Sender','17421293388','262','49','Hello Germany1',0,'2016-08-18 11:36:22'),(48,'The Sender','17421293388','262','49','Hello Germany2',0,'2016-08-18 11:36:40'),(49,'The Sender','17421293388','262','49','Hello Germany3',0,'2016-08-18 11:36:43'),(50,'The Sender','17421293388','262','49','Hello Germany4',0,'2016-08-21 11:36:48'),(51,'The Sender','17421293388','262','49','Hello Germany5',0,'2016-08-21 11:36:52'),(52,'The Sender','17421293388','232','43','Hello Austria1',0,'2016-08-19 11:37:23'),(53,'The Sender','17421293388','232','43','Hello Austria2',0,'2016-08-19 11:37:26'),(54,'The Sender','17421293388','232','43','Hello Austria3',0,'2016-08-21 11:37:28'),(55,'The Sender','17421293388','232','43','Hello Austria4',0,'2016-08-22 11:37:29'),(56,'The Sender','17421293388','232','43','Hello Austria5',0,'2016-08-23 11:37:31'),(57,'The Sender','17421293388','260','48','Hello Poland1',0,'2016-08-18 11:37:59'),(58,'The Sender','17421293388','260','48','Hello Poland2',0,'2016-08-18 11:38:01'),(59,'The Sender','17421293388','260','48','Hello Poland3',0,'2016-08-20 11:38:04'),(60,'The Sender','17421293388','260','48','Hello Poland4',0,'2016-08-21 11:38:05'),(61,'The Sender','17421293388','260','48','Hello Poland5',0,'2016-08-22 11:38:08'),(62,'The Sender','17421293388','260','48','Hello Poland6',0,'2016-08-18 13:26:13'),(63,'The Sender','17421293388','260','48','Hello Poland7',0,'2016-08-18 13:30:56'),(64,'The Sender','17421293388','260','48','Hello Poland7',0,'2016-08-18 13:34:53'),(65,'The Sender','17421293388','260','48','Hello Poland7',0,'2016-08-18 13:36:17'),(66,'The Sender','17421293388','260','48','Hello Poland8',0,'2016-08-18 13:39:17'),(67,'The Sender','17421293388','260','48','Hello Poland9',0,'2016-08-18 13:39:25'),(68,'The Sender','17421293388','260','48','Hello Poland10',0,'2016-08-18 13:42:42'),(69,'The Sender','17421293388','260','48','Hello Poland11',0,'2016-08-18 13:42:48');
+INSERT INTO `sms` VALUES (47,'The Sender','17421293388','262','49','Hello Germany1',0,'2016-08-18 11:36:22'),(48,'The Sender','17421293388','262','49','Hello Germany2',0,'2016-08-18 11:36:40'),(49,'The Sender','17421293388','262','49','Hello Germany3',0,'2016-08-18 11:36:43'),(50,'The Sender','17421293388','262','49','Hello Germany4',0,'2016-08-21 11:36:48'),(51,'The Sender','17421293388','262','49','Hello Germany5',0,'2016-08-21 11:36:52'),(52,'The Sender','17421293388','232','43','Hello Austria1',0,'2016-08-19 11:37:23'),(53,'The Sender','17421293388','232','43','Hello Austria2',0,'2016-08-19 11:37:26'),(54,'The Sender','17421293388','232','43','Hello Austria3',0,'2016-08-21 11:37:28'),(55,'The Sender','17421293388','232','43','Hello Austria4',0,'2016-08-22 11:37:29'),(56,'The Sender','17421293388','232','43','Hello Austria5',0,'2016-08-23 11:37:31'),(57,'The Sender','17421293388','260','48','Hello Poland1',0,'2016-08-18 11:37:59'),(58,'The Sender','17421293388','260','48','Hello Poland2',0,'2016-08-18 11:38:01'),(59,'The Sender','17421293388','260','48','Hello Poland3',0,'2016-08-20 11:38:04'),(60,'The Sender','17421293388','260','48','Hello Poland4',0,'2016-08-21 11:38:05'),(61,'The Sender','17421293388','260','48','Hello Poland5',0,'2016-08-22 11:38:08'),(62,'The Sender','17421293388','260','48','Hello Poland6',0,'2016-08-18 13:26:13'),(63,'The Sender','17421293388','260','48','Hello Poland7',0,'2016-08-18 13:30:56'),(64,'The Sender','17421293388','260','48','Hello Poland7',0,'2016-08-18 13:34:53'),(65,'The Sender','17421293388','260','48','Hello Poland7',0,'2016-08-18 13:36:17'),(66,'The Sender','17421293388','260','48','Hello Poland8',0,'2016-08-18 13:39:17'),(67,'The Sender','17421293388','260','48','Hello Poland9',0,'2016-08-18 13:39:25'),(68,'The Sender','17421293388','260','48','Hello Poland10',0,'2016-08-18 13:42:42'),(69,'The Sender','17421293388','260','48','Hello Poland11',0,'2016-08-18 13:42:48'),(70,'The Sender','17421293388','260','48','Hello Poland12',0,'2016-08-18 15:14:41'),(71,'The Sender','17421293388','260','48','Hello Poland12',0,'2016-08-18 15:20:42'),(72,'balram','17421293388','260','48','test',0,'2016-08-18 17:25:33'),(73,'balram','17421293388','260','48','test2',0,'2016-08-18 17:29:35'),(74,'The Sender','17421293388','260','48','Hello Poland12',0,'2016-08-18 18:15:40'),(75,'The Sender','17421293388','260','48','Hello Poland13',0,'2016-08-19 09:11:35'),(77,'Balram','17421293388','260','48','This message is from UI',0,'2016-08-19 09:34:27'),(78,'The Sender','17421293388','260','48','Hello Poland14',0,'2016-08-19 09:47:39'),(79,'Balram','17421293388','260','48','This is another message from UI.',0,'2016-08-19 09:49:58');
 /*!40000 ALTER TABLE `sms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'mitto','mitto'),(2,'balram','chavan'),(3,'admin','admin');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -134,6 +159,26 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `Login` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Login`(_userName varchar(50), _password varchar(50))
+BEGIN
+	SELECT COUNT(id) `isLoginSuccessful` FROM users
+    where user_name = _userName AND `password` = _password;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `StoreSms` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -184,4 +229,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-18 13:45:35
+-- Dump completed on 2016-08-19  9:54:50

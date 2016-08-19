@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace SmsServiceSolution.Models
+namespace Mitto.SMSService.Models
 {
     public class SmsStatisticsParams
     {

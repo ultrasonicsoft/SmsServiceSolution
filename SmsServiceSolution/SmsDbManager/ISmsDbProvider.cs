@@ -10,5 +10,6 @@ namespace Mitto.SMSService.DbProvider
         bool StoreSms(SmsParams newSmsParams);
         SmsSearchResult GetSentSms(SmsSearchCriteria smsSearchCriteria);
         IList<SmsStatisticsRecord> GetSmsStatistics(SmsStatisticsParams smsStatisticsParams);
+        bool DoLogin(string userName, string password);
     }
 }

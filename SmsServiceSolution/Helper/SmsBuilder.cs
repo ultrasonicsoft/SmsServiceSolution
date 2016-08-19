@@ -13,16 +13,25 @@ namespace Mitto.SMSService.Providers
 
         public SmsParams ComposeSms(string from, string to, string text)
         {
-            var countryCode = ExtractCountryCode(to);
-            var toNumber = ExtractToNumber(to);
-            var newSms = new SmsParams
+            var newSms = new SmsParams();
+            try
             {
-                From = from,
-                To = toNumber,
-                Text = text,
-                CountryCode = countryCode,
-                IsDelivered = false
-            };
+                var countryCode = ExtractCountryCode(to);
+                var toNumber = ExtractToNumber(to);
+                newSms = new SmsParams
+                {
+                    From = from,
+                    To = toNumber,
+                    Text = text,
+                    CountryCode = countryCode,
+                    IsDelivered = false
+                };
+            }
+            catch (Exception exception)
+            {
+                //TODO: log exception
+                throw;
+            }
             return newSms;
         }
 
@@ -35,6 +44,7 @@ namespace Mitto.SMSService.Providers
             }
             catch (Exception exception)
             {
+                //TODO: log exception
                 throw;
             }
             return toNumber;
@@ -49,6 +59,7 @@ namespace Mitto.SMSService.Providers
             }
             catch (Exception exception)
             {
+                //TODO: log exception
                 throw;
             }
             return countryCode;
